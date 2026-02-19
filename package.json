@@ -10,6 +10,8 @@
     "splunk:sync": "node scripts/splunk-sync.mjs",
     "package:splunk": "npm run build:splunk && npm run splunk:sync && node scripts/splunk-package.mjs",
     "template:rename": "node scripts/template-rename.mjs",
+    "variant:minimal": "node scripts/apply-variant.mjs --variant minimal-ui",
+    "variant:rich": "node scripts/apply-variant.mjs --variant rich-ui",
     "lint": "eslint .",
     "preview": "vite preview"
   },

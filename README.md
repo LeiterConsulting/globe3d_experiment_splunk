@@ -60,6 +60,13 @@ This updates common IDs/labels in frontend + Splunk config files.
 5. Keep `restmap.conf`, `web.conf`, and controller proxy pattern intact.
 6. Build/package/install and iterate quickly.
 
+## UI variants (fast start options)
+
+- `npm run variant:rich` keeps the full demonstration UI.
+- `npm run variant:minimal` switches to a lightweight shell UI while preserving backend/controller plumbing.
+
+After switching variants, run `npm run build:splunk` (or `npm run package:splunk`).
+
 ## Key hardening lessons baked into this template
 
 - Prefer explicit `restmap.conf` route matches for critical endpoints.
@@ -73,4 +80,5 @@ This updates common IDs/labels in frontend + Splunk config files.
 - `docs/02-build-package-install.md`
 - `docs/03-proxy-and-routing-patterns.md`
 - `docs/04-rapid-prototype-checklist.md`
+- `docs/05-ui-variants.md`
 
