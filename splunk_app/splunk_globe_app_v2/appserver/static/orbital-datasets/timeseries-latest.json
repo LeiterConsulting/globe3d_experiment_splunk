@@ -1,0 +1,527 @@
+{
+  "generatedAt": "2026-02-24T20:04:53.898Z",
+  "appId": "splunk_globe_app_v2",
+  "snapshot": "2026-02-24T20:04:53.898Z",
+  "objects": [
+    {
+      "id": "starlink-0001",
+      "label": "Starlink-0001",
+      "sourceType": "starlink",
+      "lat": 15.3972,
+      "lon": -178.5203,
+      "altitudeKm": 550,
+      "confidence": 0.924,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0003",
+      "label": "Starlink-0003",
+      "sourceType": "starlink",
+      "lat": 38.3023,
+      "lon": -162.1606,
+      "altitudeKm": 550,
+      "confidence": 0.898,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0005",
+      "label": "Starlink-0005",
+      "sourceType": "starlink",
+      "lat": 49.2826,
+      "lon": -136.5882,
+      "altitudeKm": 550,
+      "confidence": 0.929,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0007",
+      "label": "Starlink-0007",
+      "sourceType": "starlink",
+      "lat": 53.3835,
+      "lon": -111.88,
+      "altitudeKm": 550,
+      "confidence": 0.906,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0009",
+      "label": "Starlink-0009",
+      "sourceType": "starlink",
+      "lat": 37.4913,
+      "lon": -106.8908,
+      "altitudeKm": 550,
+      "confidence": 0.873,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0011",
+      "label": "Starlink-0011",
+      "sourceType": "starlink",
+      "lat": 13.8106,
+      "lon": -83.6879,
+      "altitudeKm": 550,
+      "confidence": 0.879,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0013",
+      "label": "Starlink-0013",
+      "sourceType": "starlink",
+      "lat": -16.9316,
+      "lon": -65.5145,
+      "altitudeKm": 550,
+      "confidence": 0.898,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0015",
+      "label": "Starlink-0015",
+      "sourceType": "starlink",
+      "lat": -37.0747,
+      "lon": -33.3142,
+      "altitudeKm": 550,
+      "confidence": 0.91,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0017",
+      "label": "Starlink-0017",
+      "sourceType": "starlink",
+      "lat": -53.2699,
+      "lon": -16.5918,
+      "altitudeKm": 550,
+      "confidence": 0.909,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0019",
+      "label": "Starlink-0019",
+      "sourceType": "starlink",
+      "lat": -47.0136,
+      "lon": 2.0333,
+      "altitudeKm": 550,
+      "confidence": 0.918,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0021",
+      "label": "Starlink-0021",
+      "sourceType": "starlink",
+      "lat": -34.7408,
+      "lon": 18.3299,
+      "altitudeKm": 550,
+      "confidence": 0.889,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0023",
+      "label": "Starlink-0023",
+      "sourceType": "starlink",
+      "lat": -9.774,
+      "lon": 37.6894,
+      "altitudeKm": 550,
+      "confidence": 0.891,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0025",
+      "label": "Starlink-0025",
+      "sourceType": "starlink",
+      "lat": 19.413,
+      "lon": 58.229,
+      "altitudeKm": 550,
+      "confidence": 0.892,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0027",
+      "label": "Starlink-0027",
+      "sourceType": "starlink",
+      "lat": 39.6397,
+      "lon": 70.5998,
+      "altitudeKm": 550,
+      "confidence": 0.885,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0029",
+      "label": "Starlink-0029",
+      "sourceType": "starlink",
+      "lat": 48.5073,
+      "lon": 111.7899,
+      "altitudeKm": 550,
+      "confidence": 0.911,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0031",
+      "label": "Starlink-0031",
+      "sourceType": "starlink",
+      "lat": 51.3812,
+      "lon": 120.5212,
+      "altitudeKm": 550,
+      "confidence": 0.916,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0033",
+      "label": "Starlink-0033",
+      "sourceType": "starlink",
+      "lat": 33.3602,
+      "lon": 135.1153,
+      "altitudeKm": 550,
+      "confidence": 0.895,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "starlink-0035",
+      "label": "Starlink-0035",
+      "sourceType": "starlink",
+      "lat": 10.1793,
+      "lon": 171.1402,
+      "altitudeKm": 550,
+      "confidence": 0.881,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0037",
+      "label": "GPS-0037",
+      "sourceType": "gps",
+      "lat": 68.4593,
+      "lon": -170.6282,
+      "altitudeKm": 20200,
+      "confidence": 0.938,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0039",
+      "label": "GPS-0039",
+      "sourceType": "gps",
+      "lat": 29.2313,
+      "lon": -140.5229,
+      "altitudeKm": 20200,
+      "confidence": 0.926,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0041",
+      "label": "GPS-0041",
+      "sourceType": "gps",
+      "lat": -34.1287,
+      "lon": -104.6894,
+      "altitudeKm": 20200,
+      "confidence": 0.917,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0043",
+      "label": "GPS-0043",
+      "sourceType": "gps",
+      "lat": -66.4549,
+      "lon": -59.7214,
+      "altitudeKm": 20200,
+      "confidence": 0.914,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0045",
+      "label": "GPS-0045",
+      "sourceType": "gps",
+      "lat": -41.4998,
+      "lon": -9.6707,
+      "altitudeKm": 20200,
+      "confidence": 0.901,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0047",
+      "label": "GPS-0047",
+      "sourceType": "gps",
+      "lat": 20.6573,
+      "lon": 28.9355,
+      "altitudeKm": 20200,
+      "confidence": 0.915,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0049",
+      "label": "GPS-0049",
+      "sourceType": "gps",
+      "lat": 65.3204,
+      "lon": 70.9949,
+      "altitudeKm": 20200,
+      "confidence": 0.94,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0051",
+      "label": "GPS-0051",
+      "sourceType": "gps",
+      "lat": 58.8061,
+      "lon": 101.5034,
+      "altitudeKm": 20200,
+      "confidence": 0.931,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "gps-0053",
+      "label": "GPS-0053",
+      "sourceType": "gps",
+      "lat": 1.6712,
+      "lon": 132.0797,
+      "altitudeKm": 20200,
+      "confidence": 0.912,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0055",
+      "label": "NASA-0055",
+      "sourceType": "nasa",
+      "lat": 40.7874,
+      "lon": -174.3933,
+      "altitudeKm": 780,
+      "confidence": 0.884,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0057",
+      "label": "NASA-0057",
+      "sourceType": "nasa",
+      "lat": -42.2873,
+      "lon": -127.7226,
+      "altitudeKm": 780,
+      "confidence": 0.877,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0059",
+      "label": "NASA-0059",
+      "sourceType": "nasa",
+      "lat": -70.6385,
+      "lon": -64.6796,
+      "altitudeKm": 780,
+      "confidence": 0.909,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0061",
+      "label": "NASA-0061",
+      "sourceType": "nasa",
+      "lat": -8.1582,
+      "lon": -14.404,
+      "altitudeKm": 780,
+      "confidence": 0.887,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0063",
+      "label": "NASA-0063",
+      "sourceType": "nasa",
+      "lat": 70.152,
+      "lon": 38.0606,
+      "altitudeKm": 780,
+      "confidence": 0.89,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0065",
+      "label": "NASA-0065",
+      "sourceType": "nasa",
+      "lat": 59.2494,
+      "lon": 91.0668,
+      "altitudeKm": 780,
+      "confidence": 0.882,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "nasa-0067",
+      "label": "NASA-0067",
+      "sourceType": "nasa",
+      "lat": -23.9251,
+      "lon": 123.5469,
+      "altitudeKm": 780,
+      "confidence": 0.852,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0069",
+      "label": "COMMS-0069",
+      "sourceType": "comms",
+      "lat": 4.0124,
+      "lon": 177.8462,
+      "altitudeKm": 35786,
+      "confidence": 0.831,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0071",
+      "label": "COMMS-0071",
+      "sourceType": "comms",
+      "lat": -17.988,
+      "lon": -137.8841,
+      "altitudeKm": 35786,
+      "confidence": 0.834,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0073",
+      "label": "COMMS-0073",
+      "sourceType": "comms",
+      "lat": -26.6383,
+      "lon": -115.101,
+      "altitudeKm": 35786,
+      "confidence": 0.873,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0075",
+      "label": "COMMS-0075",
+      "sourceType": "comms",
+      "lat": -15.6676,
+      "lon": -62.4814,
+      "altitudeKm": 35786,
+      "confidence": 0.845,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0077",
+      "label": "COMMS-0077",
+      "sourceType": "comms",
+      "lat": 0.1538,
+      "lon": -42.6136,
+      "altitudeKm": 35786,
+      "confidence": 0.872,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0079",
+      "label": "COMMS-0079",
+      "sourceType": "comms",
+      "lat": 22.9808,
+      "lon": -3.8611,
+      "altitudeKm": 35786,
+      "confidence": 0.84,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0081",
+      "label": "COMMS-0081",
+      "sourceType": "comms",
+      "lat": 24.2089,
+      "lon": 30.8155,
+      "altitudeKm": 35786,
+      "confidence": 0.839,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0083",
+      "label": "COMMS-0083",
+      "sourceType": "comms",
+      "lat": 8.3646,
+      "lon": 65.4643,
+      "altitudeKm": 35786,
+      "confidence": 0.843,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0085",
+      "label": "COMMS-0085",
+      "sourceType": "comms",
+      "lat": -10.687,
+      "lon": 111.9684,
+      "altitudeKm": 35786,
+      "confidence": 0.857,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "comms-0087",
+      "label": "COMMS-0087",
+      "sourceType": "comms",
+      "lat": -24.7068,
+      "lon": 136.7667,
+      "altitudeKm": 35786,
+      "confidence": 0.867,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0089",
+      "label": "Tracked-0089",
+      "sourceType": "tracked",
+      "lat": -44.908,
+      "lon": -174.196,
+      "altitudeKm": 1100,
+      "confidence": 0.743,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0091",
+      "label": "Tracked-0091",
+      "sourceType": "tracked",
+      "lat": -81.6496,
+      "lon": -139.3041,
+      "altitudeKm": 1100,
+      "confidence": 0.764,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0093",
+      "label": "Tracked-0093",
+      "sourceType": "tracked",
+      "lat": -33.0638,
+      "lon": -87.9119,
+      "altitudeKm": 1100,
+      "confidence": 0.754,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0095",
+      "label": "Tracked-0095",
+      "sourceType": "tracked",
+      "lat": 45.8739,
+      "lon": -48.8921,
+      "altitudeKm": 1100,
+      "confidence": 0.778,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0097",
+      "label": "Tracked-0097",
+      "sourceType": "tracked",
+      "lat": 79.1294,
+      "lon": -7.2643,
+      "altitudeKm": 1100,
+      "confidence": 0.764,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0099",
+      "label": "Tracked-0099",
+      "sourceType": "tracked",
+      "lat": 24.7618,
+      "lon": 31.9986,
+      "altitudeKm": 1100,
+      "confidence": 0.761,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0101",
+      "label": "Tracked-0101",
+      "sourceType": "tracked",
+      "lat": -51.455,
+      "lon": 90.8313,
+      "altitudeKm": 1100,
+      "confidence": 0.739,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    },
+    {
+      "id": "tracked-0103",
+      "label": "Tracked-0103",
+      "sourceType": "tracked",
+      "lat": -79.6068,
+      "lon": 128.4333,
+      "altitudeKm": 1100,
+      "confidence": 0.731,
+      "snapshot": "2026-02-24T20:04:53.898Z"
+    }
+  ]
+}

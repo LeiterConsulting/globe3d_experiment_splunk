@@ -1,0 +1,3 @@
+<nav search_view="search" color="#38BDF8">
+  <view name="splunk_globe_app_v2" default="true" />
+</nav>

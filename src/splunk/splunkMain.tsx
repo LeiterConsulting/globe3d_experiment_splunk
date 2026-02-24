@@ -4,7 +4,7 @@ import App from '../App'
 import '../styles.css'
 
 function mount() {
-  const el = document.getElementById('splunk-terminal-app-root')
+  const el = document.getElementById('splunk-globe-app-root')
   if (!el) return
 
   ReactDOM.createRoot(el).render(

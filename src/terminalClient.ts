@@ -1,6 +1,6 @@
 import { getSplunkCustomControllerBasePath, getSplunkServicesBasePath, getSplunkServicesNSBasePath, splunkFetchJSON } from './llmProxySdk/splunkFetch'
 
-const APP = 'splunk_terminal_app'
+const APP = (import.meta.env.VITE_SPLUNK_APP_ID as string | undefined) || 'splunk_globe_app'
 
 type Endpoint = {
   id: string

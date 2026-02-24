@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Splunk Geo Globe</title>
+    <style>
+      html,
+      body,
+      #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #000;
+        background-image: none;
+        background-size: cover;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      }
+
+      #container {
+        position: relative;
+        z-index: 2;
+      }
+
+      #starfield {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background-image: url('/static/app/splunk_globe_app_v2/vendor/webgl-globe/starfield.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.6;
+        pointer-events: none;
+        display: none;
+      }
+
+      #overlay {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #e2e8f0;
+        border-radius: 10px;
+        padding: 10px 12px;
+        z-index: 10;
+        min-width: 220px;
+        max-width: min(44vw, 420px);
+        line-height: 1.35;
+        backdrop-filter: blur(3px);
+        transition: background 120ms ease, border-color 120ms ease, padding 120ms ease, min-width 120ms ease;
+      }
+
+      #title {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      #subtitle {
+        margin-top: 4px;
+        color: #94a3b8;
+        font-size: 12px;
+      }
+
+      #legend {
+        margin-top: 8px;
+        display: grid;
+        gap: 4px;
+      }
+
+      #legend-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      #legend-title {
+        font-size: 11px;
+        color: #cbd5e1;
+        font-weight: 600;
+      }
+
+      #legend-total {
+        font-size: 11px;
+        color: #94a3b8;
+      }
+
+      #legend-list {
+        margin-top: 4px;
+        display: grid;
+        gap: 4px;
+      }
+
+      .legend-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .legend-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .legend-swatch {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        flex-shrink: 0;
+      }
+
+      .legend-label {
+        font-size: 11px;
+        color: #dbeafe;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .legend-count {
+        font-size: 11px;
+        color: #94a3b8;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="starfield"></div>
+    <div id="container"></div>
+    <div id="overlay">
+      <div id="title">Splunk Geo Globe App</div>
+      <div id="subtitle">Waiting for data...</div>
+      <div id="legend">
+        <div id="legend-header">
+          <span id="legend-title">Categories</span>
+          <span id="legend-total"></span>
+        </div>
+        <div id="legend-list"></div>
+      </div>
+    </div>
+
+    <script>
+      window.i18n_register = window.i18n_register || function () {}
+    </script>
+    <script src="/static/app/splunk_globe_app_v2/vendor/webgl-globe/third-party/Detector.js"></script>
+    <script src="/static/app/splunk_globe_app_v2/vendor/webgl-globe/third-party/three.min.js"></script>
+    <script src="/static/app/splunk_globe_app_v2/vendor/webgl-globe/third-party/Tween.js"></script>
+    <script src="/static/app/splunk_globe_app_v2/vendor/webgl-globe/globe.js"></script>
+    <script>
+      (function () {
+        var container = document.getElementById('container')
+        var starfieldEl = document.getElementById('starfield')
+        var overlayEl = document.getElementById('overlay')
+        var titleEl = document.getElementById('title')
+        var subtitleEl = document.getElementById('subtitle')
+        var legendEl = document.getElementById('legend')
+        var legendTotalEl = document.getElementById('legend-total')
+        var legendListEl = document.getElementById('legend-list')
+
+        var categoryPalette = []
+        var useCategoryColor = false
+        var enablePointClick = true
+        var frameMeta = []
+        var activeFramePoints = []
+        var lastFocusRequestId = -1
+
+        var raycaster = new THREE.Raycaster()
+        var pointer = new THREE.Vector2()
+
+        function resolvePointColor(x) {
+          var c = new THREE.Color()
+          if (useCategoryColor && categoryPalette.length) {
+            var idx = Math.floor(Number(x))
+            if (Number.isFinite(idx) && idx >= 0 && idx < categoryPalette.length) {
+              c.set(categoryPalette[idx])
+              return c
+            }
+          }
+          var magnitude = Number(x)
+          if (!Number.isFinite(magnitude)) magnitude = 0.5
+          magnitude = Math.max(0, Math.min(1, magnitude))
+          c.setHSL(0.6 - magnitude * 0.5, 1.0, 0.5)
+          return c
+        }
+
+        if (!window.Detector || !Detector.webgl) {
+          subtitleEl.textContent = 'WebGL unavailable in this browser session.'
+          if (window.Detector && Detector.addGetWebGLMessage) Detector.addGetWebGLMessage()
+          return
+        }
+
+        var globe = new DAT.Globe(container, {
+          imgDir: '../vendor/webgl-globe/',
+          colorFn: resolvePointColor,
+        })
+        globe.animate()
+        if (window.TWEEN && typeof TWEEN.start === 'function') {
+          TWEEN.start()
+        }
+        if (globe.renderer && globe.renderer.domElement) {
+          globe.renderer.domElement.addEventListener('click', tryPickPoint, false)
+        }
+
+        var frameTimer = null
+        var currentFrame = 0
+
+        function normalizeFrameMeta(value) {
+          if (!Array.isArray(value)) return []
+          var frames = []
+          for (var i = 0; i < value.length; i++) {
+            var frame = value[i]
+            if (!frame || typeof frame !== 'object') continue
+            var points = Array.isArray(frame.points) ? frame.points : []
+            var normalized = []
+            for (var j = 0; j < points.length; j++) {
+              var point = points[j]
+              if (!point || typeof point !== 'object') continue
+              var lat = Number(point.lat)
+              var lon = Number(point.lon)
+              var valueNum = Number(point.value)
+              if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue
+              if (!Number.isFinite(valueNum)) valueNum = 0
+              normalized.push({
+                lat: lat,
+                lon: lon,
+                value: valueNum,
+                label: typeof point.label === 'string' ? point.label : '',
+                category: typeof point.category === 'string' ? point.category : '',
+                source: typeof point.source === 'string' ? point.source : '',
+              })
+            }
+            frames.push({ name: typeof frame.name === 'string' ? frame.name : 'Frame ' + (i + 1), points: normalized })
+          }
+          return frames
+        }
+
+        function updateActiveFramePoints(index) {
+          var frame = frameMeta[index]
+          activeFramePoints = frame && Array.isArray(frame.points) ? frame.points : []
+        }
+
+        function resetPoints() {
+          if (frameTimer) {
+            clearInterval(frameTimer)
+            frameTimer = null
+          }
+          currentFrame = 0
+          if (!globe.points) return
+          globe.scene.remove(globe.points)
+          if (globe.points.geometry && globe.points.geometry.dispose) globe.points.geometry.dispose()
+          if (globe.points.material && globe.points.material.dispose) globe.points.material.dispose()
+          globe.points = null
+          globe._baseGeometry = undefined
+          globe._morphTargetId = undefined
+          globe.is_animated = false
+        }
+
+        function normalizePoints(value, includeCategory) {
+          if (!Array.isArray(value)) return []
+          var points = []
+          for (var i = 0; i < value.length; i++) {
+            var item = value[i]
+            if (!Array.isArray(item) || item.length < 3) continue
+            var lat = Number(item[0])
+            var lon = Number(item[1])
+            var mag = Number(item[2])
+            if (!Number.isFinite(lat) || !Number.isFinite(lon) || !Number.isFinite(mag)) continue
+            points.push(lat, lon, Math.max(0.02, mag))
+            if (includeCategory) {
+              var categoryIdx = Number(item[3])
+              if (!Number.isFinite(categoryIdx) || categoryIdx < 0) categoryIdx = 0
+              points.push(Math.floor(categoryIdx))
+            }
+          }
+          return points
+        }
+
+        function frameTimeFor(index, frameCount) {
+          if (frameCount <= 1) return 0
+          return index / (frameCount - 1)
+        }
+
+        function animateToFrame(index, frameCount) {
+          var t = frameTimeFor(index, frameCount)
+          if (window.TWEEN && typeof TWEEN.Tween === 'function') {
+            new TWEEN.Tween(globe)
+              .to({ time: t }, 700)
+              .easing(TWEEN.Easing.Cubic.EaseOut)
+              .start()
+          } else {
+            globe.time = t
+          }
+        }
+
+        function normalizeFrames(value, includeCategory) {
+          if (!Array.isArray(value)) return []
+          var frames = []
+          for (var i = 0; i < value.length; i++) {
+            var frame = value[i]
+            if (!frame || typeof frame !== 'object') continue
+            var points = normalizePoints(frame.points, includeCategory)
+            if (!points.length) continue
+            var name = typeof frame.name === 'string' && frame.name.trim() ? frame.name.trim() : 'Frame ' + (i + 1)
+            frames.push({ name: name, points: points })
+          }
+          return frames
+        }
+
+        function renderLegend(items, isVisible) {
+          function escapeHtml(value) {
+            return String(value)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;')
+          }
+
+          if (!legendEl || !legendListEl || !legendTotalEl) return
+          if (!isVisible || !Array.isArray(items) || !items.length) {
+            legendEl.style.display = 'none'
+            legendTotalEl.textContent = ''
+            legendListEl.innerHTML = ''
+            return
+          }
+          legendEl.style.display = 'grid'
+          var html = ''
+          var total = 0
+          for (var i = 0; i < items.length; i++) {
+            var item = items[i] || {}
+            var label = typeof item.label === 'string' ? item.label : 'uncategorized'
+            var count = Number(item.count)
+            if (!Number.isFinite(count) || count < 0) count = 0
+            total += count
+            var color = typeof item.color === 'string' ? item.color : '#38bdf8'
+            var safeLabel = escapeHtml(label)
+            html += '<div class="legend-row"><div class="legend-left"><span class="legend-swatch" style="background:' + color + '"></span><span class="legend-label" title="' + safeLabel + '">' + safeLabel + '</span></div><span class="legend-count">' + count + '</span></div>'
+          }
+          legendTotalEl.textContent = total + ' points'
+          legendListEl.innerHTML = html
+        }
+
+        function applyVisualSettings(settings) {
+          var earthStyle = settings.earthStyle
+          var atmosphereStyle = settings.atmosphereStyle
+          var showPointGlow = settings.showPointGlow !== false
+
+          if (earthStyle !== 'muted' && earthStyle !== 'contrast' && earthStyle !== 'neon') {
+            earthStyle = 'natural'
+          }
+          if (atmosphereStyle !== 'soft' && atmosphereStyle !== 'off') {
+            atmosphereStyle = 'standard'
+          }
+
+          if (earthStyle === 'muted') {
+            globe.renderer.domElement.style.filter = 'saturate(0.70) contrast(0.92) brightness(0.95)'
+          } else if (earthStyle === 'contrast') {
+            globe.renderer.domElement.style.filter = 'saturate(1.25) contrast(1.2) brightness(1.05)'
+          } else if (earthStyle === 'neon') {
+            globe.renderer.domElement.style.filter = 'saturate(1.5) contrast(1.25) brightness(1.05) hue-rotate(8deg)'
+          } else {
+            globe.renderer.domElement.style.filter = 'none'
+          }
+
+          if (globe.atmosphereMesh && globe.atmosphereMesh.material) {
+            if (atmosphereStyle === 'off') {
+              globe.atmosphereMesh.visible = false
+            } else {
+              globe.atmosphereMesh.visible = true
+              globe.atmosphereMesh.material.opacity = atmosphereStyle === 'soft' ? 0.45 : 1
+            }
+          }
+
+          if (globe.points && globe.points.material) {
+            globe.points.material.transparent = true
+            globe.points.material.opacity = showPointGlow ? 1 : 0.85
+          }
+        }
+
+        function tryPickPoint(event) {
+          if (!enablePointClick || !globe.points || !globe.camera) return
+          var rect = globe.renderer.domElement.getBoundingClientRect()
+          if (!rect || !rect.width || !rect.height) return
+
+          pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
+          pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
+
+          raycaster.setFromCamera(pointer, globe.camera)
+          var intersects = raycaster.intersectObject(globe.points)
+          if (!intersects.length) return
+
+          var faceIndex = intersects[0].faceIndex
+          if (!Number.isFinite(faceIndex)) return
+          var pointIndex = Math.floor(faceIndex / 12)
+          if (pointIndex < 0 || pointIndex >= activeFramePoints.length) return
+
+          var point = activeFramePoints[pointIndex]
+          if (!point) return
+          window.parent.postMessage(
+            {
+              type: 'splunk-globe:point-click',
+              payload: point,
+            },
+            '*'
+          )
+        }
+
+        function updatePoints(data) {
+          var title = typeof data.title === 'string' ? data.title : 'Splunk Geo Globe App'
+          var subtitle = typeof data.subtitle === 'string' ? data.subtitle : ''
+          titleEl.textContent = title
+          resetPoints()
+
+          var settings = data.settings && typeof data.settings === 'object' ? data.settings : {}
+          var interaction = data.interaction && typeof data.interaction === 'object' ? data.interaction : {}
+          enablePointClick = interaction.enablePointClick !== false
+          var autoRotate = interaction.autoRotate === true
+          var autoRotateSpeed = Number(interaction.autoRotateSpeed)
+          if (!Number.isFinite(autoRotateSpeed)) autoRotateSpeed = 0.08
+          autoRotateSpeed = Math.max(0.03, Math.min(0.2, autoRotateSpeed))
+
+          var showOverlay = settings.showOverlay !== false
+          var overlayOpacity = Number(settings.overlayOpacity)
+          if (!Number.isFinite(overlayOpacity)) overlayOpacity = 0.5
+          overlayOpacity = Math.max(0.25, Math.min(0.9, overlayOpacity))
+
+          var overlayPosition = settings.overlayPosition === 'right' ? 'right' : 'left'
+          var overlayDensity = settings.overlayDensity === 'compact' ? 'compact' : 'comfortable'
+          var showLegend = settings.showLegend !== false
+
+          var overlayWidth = Number(settings.overlayWidth)
+          if (!Number.isFinite(overlayWidth)) overlayWidth = 260
+          overlayWidth = Math.max(180, Math.min(420, Math.floor(overlayWidth)))
+
+          var overlayContrast = settings.overlayContrast === 'high' ? 'high' : 'standard'
+
+          var overlayBorderStrength = Number(settings.overlayBorderStrength)
+          if (!Number.isFinite(overlayBorderStrength)) overlayBorderStrength = 0.18
+          overlayBorderStrength = Math.max(0.12, Math.min(0.4, overlayBorderStrength))
+
+          overlayEl.style.display = showOverlay ? 'block' : 'none'
+          overlayEl.style.background = 'rgba(0, 0, 0, ' + overlayOpacity.toFixed(2) + ')'
+          overlayEl.style.borderColor = 'rgba(255, 255, 255, ' + overlayBorderStrength.toFixed(2) + ')'
+          overlayEl.style.minWidth = overlayWidth + 'px'
+          overlayEl.style.left = overlayPosition === 'left' ? '12px' : 'auto'
+          overlayEl.style.right = overlayPosition === 'right' ? '12px' : 'auto'
+
+          if (overlayDensity === 'compact') {
+            overlayEl.style.padding = '8px 10px'
+            overlayEl.style.borderRadius = '8px'
+            overlayEl.style.lineHeight = '1.25'
+            titleEl.style.fontSize = '13px'
+            subtitleEl.style.fontSize = '11px'
+            subtitleEl.style.marginTop = '3px'
+          } else {
+            overlayEl.style.padding = '10px 12px'
+            overlayEl.style.borderRadius = '10px'
+            overlayEl.style.lineHeight = '1.35'
+            titleEl.style.fontSize = '14px'
+            subtitleEl.style.fontSize = '12px'
+            subtitleEl.style.marginTop = '4px'
+          }
+
+          if (overlayContrast === 'high') {
+            titleEl.style.color = '#ffffff'
+            subtitleEl.style.color = '#dbeafe'
+            titleEl.style.textShadow = '0 1px 1px rgba(0,0,0,0.6)'
+            subtitleEl.style.textShadow = '0 1px 1px rgba(0,0,0,0.5)'
+          } else {
+            titleEl.style.color = '#e2e8f0'
+            subtitleEl.style.color = '#94a3b8'
+            titleEl.style.textShadow = 'none'
+            subtitleEl.style.textShadow = 'none'
+          }
+
+          var paletteInput = Array.isArray(data.categoryPalette) ? data.categoryPalette : []
+          var nextPalette = []
+          for (var p = 0; p < paletteInput.length; p++) {
+            var color = paletteInput[p]
+            if (typeof color === 'string' && color.trim()) {
+              nextPalette.push(color.trim())
+            }
+          }
+          categoryPalette = nextPalette
+          useCategoryColor = categoryPalette.length > 0
+          renderLegend(data.categoryLegend, showOverlay && showLegend)
+
+          frameMeta = normalizeFrameMeta(data.frameMeta)
+
+          var backgroundMode = settings.backgroundMode
+          if (backgroundMode !== 'starfield' && backgroundMode !== 'slate') {
+            backgroundMode = 'dark'
+          }
+
+          var starfieldOpacity = Number(settings.starfieldOpacity)
+          if (!Number.isFinite(starfieldOpacity)) starfieldOpacity = 0.6
+          starfieldOpacity = Math.max(0.2, Math.min(1, starfieldOpacity))
+
+          starfieldEl.style.display = backgroundMode === 'starfield' ? 'block' : 'none'
+          starfieldEl.style.opacity = starfieldOpacity.toFixed(2)
+
+          if (backgroundMode === 'starfield') {
+            document.body.style.backgroundColor = '#000000'
+            container.style.backgroundColor = 'transparent'
+          } else if (backgroundMode === 'slate') {
+            document.body.style.backgroundColor = '#0b1220'
+            container.style.backgroundColor = '#0f172a'
+          } else {
+            document.body.style.backgroundColor = '#000000'
+            container.style.backgroundColor = '#000000'
+          }
+          document.body.style.backgroundImage = 'none'
+          container.style.backgroundImage = 'none'
+
+          var playback = data.playback && typeof data.playback === 'object' ? data.playback : {}
+          var autoplay = playback.autoplay !== false
+          var autoplayMs = Number(playback.speedMs)
+          if (!Number.isFinite(autoplayMs) || autoplayMs < 700) autoplayMs = 1700
+
+          var frames = normalizeFrames(data.frames, useCategoryColor)
+          if (!frames.length && Array.isArray(data.points)) {
+            var single = normalizePoints(data.points, useCategoryColor)
+            if (single.length) {
+              frames.push({ name: 'Current', points: single })
+            }
+          }
+
+          if (!frames.length) {
+            subtitleEl.textContent = subtitle || 'No plottable points in payload.'
+            return
+          }
+
+          var animated = frames.length > 1
+          for (var i = 0; i < frames.length; i++) {
+            globe.addData(frames[i].points, {
+              format: useCategoryColor ? 'legend' : 'magnitude',
+              animated: animated,
+              name: frames[i].name,
+            })
+          }
+          globe.createPoints()
+          applyVisualSettings(settings)
+          if (typeof globe.setAutoRotateSpeed === 'function') {
+            globe.setAutoRotateSpeed(autoRotate ? autoRotateSpeed : 0)
+          }
+
+          var selectedFrame = Number(playback.selectedFrame)
+          if (!Number.isFinite(selectedFrame)) selectedFrame = 0
+          selectedFrame = Math.max(0, Math.min(frames.length - 1, Math.floor(selectedFrame)))
+          currentFrame = selectedFrame
+
+          function setSubtitle(index) {
+            subtitleEl.textContent = subtitle + (frames[index] ? ' • ' + frames[index].name : '')
+            updateActiveFramePoints(index)
+          }
+
+          setSubtitle(currentFrame)
+          if (!animated) {
+            globe.time = 0
+            return
+          }
+
+          animateToFrame(currentFrame, frames.length)
+
+          var focusRequestId = Number(interaction.focusRequestId)
+          if (Number.isFinite(focusRequestId) && focusRequestId !== lastFocusRequestId) {
+            lastFocusRequestId = focusRequestId
+            var focusPoint = interaction.focusPoint && typeof interaction.focusPoint === 'object' ? interaction.focusPoint : null
+            if (focusPoint && Number.isFinite(Number(focusPoint.lat)) && Number.isFinite(Number(focusPoint.lon)) && typeof globe.focusLatLon === 'function') {
+              globe.focusLatLon(Number(focusPoint.lat), Number(focusPoint.lon))
+            }
+          }
+
+          if (!autoplay) return
+
+          frameTimer = setInterval(function () {
+            currentFrame = (currentFrame + 1) % frames.length
+            animateToFrame(currentFrame, frames.length)
+            setSubtitle(currentFrame)
+          }, autoplayMs)
+        }
+
+        window.addEventListener('message', function (event) {
+          var payload = event && event.data
+          if (!payload || payload.type !== 'splunk-globe:data') return
+          updatePoints(payload.payload || {})
+        })
+
+        window.addEventListener('resize', function () {
+          if (globe.renderer && globe.renderer.setSize) {
+            globe.renderer.setSize(container.offsetWidth, container.offsetHeight)
+          }
+        })
+      })()
+    </script>
+  </body>
+</html>

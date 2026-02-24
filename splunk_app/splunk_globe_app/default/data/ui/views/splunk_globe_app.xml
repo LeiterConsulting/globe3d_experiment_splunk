@@ -1,0 +1,11 @@
+<dashboard version="1.1" theme="dark" stylesheet="splunk_globe_app.css" script="splunk_globe_app.js">
+  <label>Splunk Geo Globe App</label>
+  <description>Visualize geocoded Splunk datasets with a WebGL globe.</description>
+  <row>
+    <panel>
+      <html encoded="false">
+        <div id="splunk-globe-app-root"></div>
+      </html>
+    </panel>
+  </row>
+</dashboard>

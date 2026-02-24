@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-02-24T13:51:57.580Z",
+  "rowCount": 16200,
+  "byLevel": {
+    "continent": 2,
+    "country": 34,
+    "state": 149,
+    "county": 447,
+    "city": 2004
+  }
+}

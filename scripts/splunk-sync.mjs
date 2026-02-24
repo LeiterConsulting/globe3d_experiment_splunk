@@ -1,10 +1,16 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+function readArg(name) {
+  const idx = process.argv.indexOf(name)
+  if (idx < 0 || idx + 1 >= process.argv.length) return ''
+  return String(process.argv[idx + 1] || '').trim()
+}
+
 const projectRoot = path.resolve(process.cwd())
 const distDir = path.join(projectRoot, 'dist-splunk')
 
-const appFolderName = 'splunk_terminal_app'
+const appFolderName = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
 const splunkAppRoot = path.join(projectRoot, 'splunk_app', appFolderName)
 const staticDir = path.join(splunkAppRoot, 'appserver', 'static')
 
@@ -33,7 +39,7 @@ if (!fs.existsSync(distDir)) {
 ensureDir(staticDir)
 cleanOldAssets()
 
-copyFile(path.join(distDir, 'splunk_terminal_app.js'), path.join(staticDir, 'splunk_terminal_app.js'))
-copyFile(path.join(distDir, 'splunk_terminal_app.css'), path.join(staticDir, 'splunk_terminal_app.css'))
+copyFile(path.join(distDir, `${appFolderName}.js`), path.join(staticDir, `${appFolderName}.js`))
+copyFile(path.join(distDir, `${appFolderName}.css`), path.join(staticDir, `${appFolderName}.css`))
 
 console.log(`Synced Splunk static assets to: ${staticDir}`)
