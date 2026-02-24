@@ -5,7 +5,7 @@ This execution document starts the NASA-style adoption plan on the dedicated v2 
 ## Track setup (completed)
 
 - Dedicated Splunk app folder exists: `splunk_app/splunk_globe_app_v2`
-- Dedicated package script exists: `npm run package:splunk:v2`
+- Dedicated package script exists: `npm run package:splunk`
 - Frontend/build/scripts support app-id targeting via env/flags
 
 ## Quarter 1 objective
@@ -72,7 +72,7 @@ Establish **trust and instrumentation** so operators can rely on the visualizati
 - Add confidence legend panel and export payload extension
 - Add render telemetry summary card and threshold status chips
 - Add app-id aware build/package verification for v2
-- Add repeatable smoke command: `npm run nasa:q1:smoke:v2`
+- Add repeatable smoke command: `npm run nasa:q1:smoke`
 
 ### Sprint 2 (Weeks 3-4)
 
@@ -96,19 +96,19 @@ Status update:
 
 - Adapter lifecycle is wired in runtime (`connect`, `health`, `fetch`, `normalize`) with periodic checks and sample tracking.
 - Ops payload now includes pilot adapter runtime status/details and per-layer registry metadata.
-- Added readiness report command: `npm run nasa:q1:readiness:v2` (runs smoke and writes `docs/reports/nasa-q1-readiness-v2.md`).
+- Added readiness report command: `npm run nasa:q1:readiness` (runs smoke and writes `docs/reports/nasa-q1-readiness-v2.md`).
 
 ## Immediate backlog (next implementation pass)
 
 1. Add confidence legend card in `NextGenPage` sidebar.
 2. Extend embed legend with stale-age and threshold status.
-3. Add `nasa:q1:smoke:v2` script for repeatable validation.
+3. Add `nasa:q1:smoke` script for repeatable validation.
 4. Define TypeScript interfaces for `LayerRegistry` and `IngestAdapter`.
 5. Add simulated adapter that emits trajectory-like payloads.
 
 ## Orbital dataset update (implemented)
 
-- Added dataset generation command for orbital overlays: `npm run data:orbital:build:v2`
+- Added dataset generation command for orbital overlays: `npm run data:orbital:build`
 - Generated assets now live at:
    - `splunk_app/splunk_globe_app_v2/appserver/static/orbital-datasets/catalog.json`
    - `splunk_app/splunk_globe_app_v2/appserver/static/orbital-datasets/timeseries-latest.json`

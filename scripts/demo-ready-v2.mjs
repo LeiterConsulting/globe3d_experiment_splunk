@@ -16,12 +16,12 @@ function run(command, args) {
 }
 
 const startedAt = new Date().toISOString()
-console.log(`[demo:ready:v2] started at ${startedAt}`)
+console.log(`[demo:ready] started at ${startedAt}`)
 
-run('npm', ['run', 'data:orbital:build:v2'])
-run('npm', ['run', 'nasa:q1:readiness:v2'])
+run('npm', ['run', 'data:orbital:build'])
+run('npm', ['run', 'nasa:q1:readiness'])
 
 const finishedAt = new Date().toISOString()
-console.log(`[demo:ready:v2] complete at ${finishedAt}`)
-console.log('[demo:ready:v2] install package: build/splunk_globe_app_v2.tar.gz')
-console.log('[demo:ready:v2] readiness report: docs/reports/nasa-q1-readiness-v2.md')
+console.log(`[demo:ready] complete at ${finishedAt}`)
+console.log('[demo:ready] install package: build/splunk_globe_app_v2.tar.gz')
+console.log('[demo:ready] readiness report: docs/reports/nasa-q1-readiness-v2.md')

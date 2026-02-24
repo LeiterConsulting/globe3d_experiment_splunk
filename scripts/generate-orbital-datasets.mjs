@@ -8,7 +8,7 @@ function readArg(name) {
   return String(process.argv[idx + 1] || '').trim()
 }
 
-const APP_ID = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
+const APP_ID = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app_v2'
 const projectRoot = path.resolve(process.cwd())
 const staticDir = path.join(projectRoot, 'splunk_app', APP_ID, 'appserver', 'static', 'orbital-datasets')
 const lookupDir = path.join(projectRoot, 'splunk_app', APP_ID, 'lookups')

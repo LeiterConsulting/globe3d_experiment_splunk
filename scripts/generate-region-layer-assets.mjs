@@ -8,7 +8,7 @@ function readArg(name) {
   return String(process.argv[idx + 1] || '').trim()
 }
 
-const APP_ID = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
+const APP_ID = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app_v2'
 const LOOKUP_PATH = path.join('splunk_app', APP_ID, 'lookups', 'geo_points_us_eu_hierarchy.csv')
 const COUNTRY_BOUNDARY_PATHS = [
   path.join('scripts', 'data', 'ne_50m_admin_0_countries.geojson'),

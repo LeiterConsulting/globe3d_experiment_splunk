@@ -32,7 +32,7 @@ function statusMark(ok) {
   return ok ? 'PASS' : 'FAIL'
 }
 
-run('npm', ['run', 'nasa:q1:smoke:v2'])
+run('npm', ['run', 'nasa:q1:smoke'])
 
 const checks = [
   {

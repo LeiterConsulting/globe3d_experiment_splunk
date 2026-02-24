@@ -10,7 +10,7 @@ function readArg(name) {
 
 const projectRoot = path.resolve(process.cwd())
 const buildDir = path.join(projectRoot, 'build')
-const appFolderName = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
+const appFolderName = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app_v2'
 const splunkAppRoot = path.join(projectRoot, 'splunk_app', appFolderName)
 
 fs.mkdirSync(buildDir, { recursive: true })

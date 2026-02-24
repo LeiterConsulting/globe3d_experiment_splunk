@@ -10,7 +10,7 @@ function readArg(name) {
 const projectRoot = path.resolve(process.cwd())
 const distDir = path.join(projectRoot, 'dist-splunk')
 
-const appFolderName = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
+const appFolderName = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app_v2'
 const splunkAppRoot = path.join(projectRoot, 'splunk_app', appFolderName)
 const staticDir = path.join(splunkAppRoot, 'appserver', 'static')
 

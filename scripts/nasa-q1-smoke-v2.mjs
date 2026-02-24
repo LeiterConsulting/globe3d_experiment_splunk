@@ -30,7 +30,7 @@ function assertFileContains(relativePath, needle) {
   }
 }
 
-run('npm', ['run', 'package:splunk:v2'])
+run('npm', ['run', 'package:splunk'])
 
 assertExists('splunk_app/splunk_globe_app_v2')
 assertExists('splunk_app/splunk_globe_app_v2/appserver/static/splunk_globe_app_v2.js')

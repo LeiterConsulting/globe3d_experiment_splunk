@@ -5,7 +5,7 @@
 From project root:
 
 ```bash
-npm run demo:ready:v2
+npm run demo:ready
 ```
 
 Outputs:

@@ -8,7 +8,7 @@ function readArg(name) {
   return String(process.argv[idx + 1] || '').trim()
 }
 
-const APP_ID = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
+const APP_ID = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app_v2'
 const LOOKUP_PATH = path.join('splunk_app', APP_ID, 'lookups', 'geo_points_us_eu_hierarchy.csv')
 const DELTA_PATH = path.join('splunk_app', APP_ID, 'lookups', 'geo_points_us_eu_hierarchy.delta.json')
 const HEADERS = ['snapshot', 'continent', 'country', 'state', 'county', 'city', 'lat', 'lon', 'value', 'label', 'category', 'source']

@@ -17,7 +17,7 @@ function run(command, args, env) {
   }
 }
 
-const appId = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app'
+const appId = readArg('--appId') || process.env.SPLUNK_APP_ID || 'splunk_globe_app_v2'
 const env = {
   ...process.env,
   SPLUNK_APP_ID: appId,

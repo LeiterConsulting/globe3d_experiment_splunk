@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const APP_ID = process.env.SPLUNK_APP_ID || process.env.VITE_SPLUNK_APP_ID || 'splunk_globe_app'
+const APP_ID = process.env.SPLUNK_APP_ID || process.env.VITE_SPLUNK_APP_ID || 'splunk_globe_app_v2'
 
 export default defineConfig({
   plugins: [react()],
