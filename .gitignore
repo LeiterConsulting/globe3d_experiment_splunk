@@ -27,6 +27,7 @@ dist-ssr
 
 # Local demo/report docs (keep locally, do not track)
 docs/reports/
+docs/08-advanced-upgrade-roadmap.md
 docs/11-v2-demo-run-sheet.md
 docs/12-v2-demo-narrator-script.md
 Globe_Navigation_Refactor_Spec.md
