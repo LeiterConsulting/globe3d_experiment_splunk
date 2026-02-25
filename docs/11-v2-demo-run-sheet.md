@@ -11,7 +11,7 @@ npm run demo:ready
 Outputs:
 
 - Install package: `build/splunk_globe_app_v2.tar.gz`
-- Readiness report: `docs/reports/nasa-q1-readiness-v2.md`
+- Readiness report: `docs/reports/v2-readiness-report.md`
 
 ## Splunk install
 
@@ -46,7 +46,7 @@ Outputs:
 
 ## Acceptance capture during demo
 
-Record results directly in `docs/reports/nasa-q1-readiness-v2.md` under:
+Record results directly in `docs/reports/v2-readiness-report.md` under:
 
 - NT-01: non-terrestrial render + legend behavior
 - NT-02: launch event mode behavior

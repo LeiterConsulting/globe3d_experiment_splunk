@@ -1,6 +1,6 @@
-# NASA Q1 Readiness Report (V2)
+# V2 Readiness Report
 
-Generated: 2026-02-24T20:16:49.214Z
+Generated: 2026-02-25T13:33:49.593Z
 
 ## Summary
 
@@ -14,7 +14,7 @@ Generated: 2026-02-24T20:16:49.214Z
 - [x] Per-layer provenance + registry summary wired — PASS (src/NextGenPage.tsx)
 - [x] Pilot adapter lifecycle wired (connect/health/fetch/normalize) — PASS (src/NextGenPage.tsx)
 - [x] Embed stale/critical visual status treatment active — PASS (splunk_app/splunk_globe_app_v2/appserver/static/nextgen-embed/index.html)
-- [x] Layer registry + simulated adapter scaffolding exists — PASS (src/nasa/layerRegistry.ts, src/nasa/simulatedTrajectoryAdapter.ts)
+- [x] Layer registry + simulated adapter scaffolding exists — PASS (layerRegistry.ts and simulatedTrajectoryAdapter.ts)
 - [x] Orbital dataset artifacts generated for V2 — PASS (splunk_app/splunk_globe_app_v2/appserver/static/orbital-datasets/catalog.json, splunk_app/splunk_globe_app_v2/appserver/static/orbital-datasets/timeseries-latest.json, splunk_app/splunk_globe_app_v2/lookups/orbital_objects_seed.csv)
 - [x] Non-terrestrial + launch-event payload controls wired — PASS (src/NextGenPage.tsx)
 - [x] Embed orbital rendering + launch-event legend treatment active — PASS (splunk_app/splunk_globe_app_v2/appserver/static/nextgen-embed/index.html)

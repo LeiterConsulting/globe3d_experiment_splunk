@@ -32,7 +32,7 @@
 
 **Do:**
 - Highlight operational confidence/provenance status elements.
-- Mention readiness report location: `docs/reports/nasa-q1-readiness-v2.md`.
+- Mention readiness report location: `docs/reports/v2-readiness-report.md`.
 
 ### 2:15-4:45 — Non-terrestrial activation (NT-01)
 
@@ -75,7 +75,7 @@
 "V2 is demo-ready and packaged for install, with acceptance criteria captured per role. Next step is role-based in-Splunk execution and PASS/FAIL capture for NT-01/NT-02/NT-03."
 
 **Do:**
-- Show acceptance matrix in `docs/reports/nasa-q1-readiness-v2.md`.
+- Show acceptance matrix in `docs/reports/v2-readiness-report.md`.
 
 ## Q&A cheat responses
 

@@ -134,8 +134,8 @@ A milestone is considered done when all are true:
 - Manual smoke test covers: continent -> city drilldown, search-focus, arc flows, autoplay
 - Visual regression check confirms boundary/context readability at each level
 
-## NASA-style ops center adoption planning
+## Tech demo positioning and implementation planning
 
-For an explicit adoption-focused capability plan (without renaming/rebranding this app), see:
+For the V2 implementation-focused positioning document, see:
 
-- `docs/09-nasa-ops-center-adoption-plan.md`
+- `docs/09-tech-demo-implementation-plan.md`

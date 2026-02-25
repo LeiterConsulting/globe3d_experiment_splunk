@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process'
 
 const projectRoot = path.resolve(process.cwd())
 const reportDir = path.join(projectRoot, 'docs', 'reports')
-const reportPath = path.join(reportDir, 'nasa-q1-readiness-v2.md')
+const reportPath = path.join(reportDir, 'v2-readiness-report.md')
 
 function run(command, args) {
   const result = spawnSync(command, args, {
@@ -32,7 +32,7 @@ function statusMark(ok) {
   return ok ? 'PASS' : 'FAIL'
 }
 
-run('npm', ['run', 'nasa:q1:smoke'])
+run('npm', ['run', 'demo:smoke'])
 
 const checks = [
   {
@@ -63,7 +63,7 @@ const checks = [
   {
     label: 'Layer registry + simulated adapter scaffolding exists',
     ok: exists('src/nasa/layerRegistry.ts') && exists('src/nasa/simulatedTrajectoryAdapter.ts'),
-    evidence: 'src/nasa/layerRegistry.ts, src/nasa/simulatedTrajectoryAdapter.ts',
+    evidence: 'layerRegistry.ts and simulatedTrajectoryAdapter.ts',
   },
   {
     label: 'Orbital dataset artifacts generated for V2',
@@ -137,7 +137,7 @@ const riskRegister = [
   },
 ]
 
-const report = `# NASA Q1 Readiness Report (V2)\n\nGenerated: ${generatedAt}\n\n## Summary\n\n- Checks passed: ${passed}/${checks.length}\n- Overall status: ${failed === 0 ? 'READY FOR IN-SPLUNK TEST PHASE' : 'NOT READY'}\n\n## Verification Checklist\n\n${checks
+const report = `# V2 Readiness Report\n\nGenerated: ${generatedAt}\n\n## Summary\n\n- Checks passed: ${passed}/${checks.length}\n- Overall status: ${failed === 0 ? 'READY FOR IN-SPLUNK TEST PHASE' : 'NOT READY'}\n\n## Verification Checklist\n\n${checks
   .map((item) => `- [${item.ok ? 'x' : ' '}] ${item.label} — ${statusMark(item.ok)} (${item.evidence})`)
   .join('\n')}\n\n## Risk Register\n\n| ID | Risk | Impact | Mitigation | Owner |\n| --- | --- | --- | --- | --- |\n${riskRegister
   .map((risk) => `| ${risk.id} | ${risk.risk} | ${risk.impact} | ${risk.mitigation} | ${risk.owner} |`)
@@ -146,4 +146,4 @@ const report = `# NASA Q1 Readiness Report (V2)\n\nGenerated: ${generatedAt}\n\n
 fs.mkdirSync(reportDir, { recursive: true })
 fs.writeFileSync(reportPath, report, 'utf8')
 
-console.log(`Q1 readiness report written: ${path.relative(projectRoot, reportPath)}`)
+console.log(`Readiness report written: ${path.relative(projectRoot, reportPath)}`)

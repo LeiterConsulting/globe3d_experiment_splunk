@@ -18,15 +18,15 @@ npm run demo:ready
 Outputs:
 
 - Install package: `build/splunk_globe_app_v2.tar.gz`
-- Readiness report: `docs/reports/nasa-q1-readiness-v2.md`
+- Readiness report: `docs/reports/v2-readiness-report.md`
 
 ## Core commands
 
 - `npm run build:splunk` — build Splunk bundle for V2
 - `npm run splunk:sync` — sync built assets into `splunk_app/splunk_globe_app_v2/appserver/static`
 - `npm run package:splunk` — create install package `build/splunk_globe_app_v2.tar.gz`
-- `npm run nasa:q1:smoke` — package + wiring assertions
-- `npm run nasa:q1:readiness` — smoke + readiness report generation
+- `npm run demo:smoke` — package + wiring assertions
+- `npm run demo:readiness` — smoke + readiness report generation
 - `npm run demo:ready` — orbital data refresh + readiness + fresh install package
 
 ## Splunk install
@@ -46,9 +46,9 @@ Outputs:
 ## Documentation
 
 - `docs/08-advanced-upgrade-roadmap.md`
-- `docs/09-nasa-ops-center-adoption-plan.md`
-- `docs/10-v2-nasa-quarter1-execution.md`
+- `docs/09-tech-demo-implementation-plan.md`
+- `docs/10-v2-execution-methods.md`
 - `docs/11-v2-demo-run-sheet.md`
 - `docs/12-v2-demo-narrator-script.md`
-- `docs/reports/nasa-q1-readiness-v2.md`
+- `docs/reports/v2-readiness-report.md`
 

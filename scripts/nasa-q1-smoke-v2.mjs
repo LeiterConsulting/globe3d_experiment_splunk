@@ -40,7 +40,7 @@ assertExists('splunk_app/splunk_globe_app_v2/appserver/static/orbital-datasets/c
 assertExists('splunk_app/splunk_globe_app_v2/appserver/static/orbital-datasets/timeseries-latest.json')
 assertExists('splunk_app/splunk_globe_app_v2/lookups/orbital_objects_seed.csv')
 assertExists('build/splunk_globe_app_v2.tar.gz')
-assertExists('docs/10-v2-nasa-quarter1-execution.md')
+assertExists('docs/10-v2-execution-methods.md')
 assertExists('src/nasa/layerRegistry.ts')
 assertExists('src/nasa/simulatedTrajectoryAdapter.ts')
 
@@ -60,4 +60,4 @@ assertFileContains('splunk_app/splunk_globe_app_v2/appserver/static/nextgen-embe
 assertFileContains('splunk_app/splunk_globe_app_v2/appserver/static/nextgen-embed/index.html', 'orbital objects:')
 assertFileContains('splunk_app/splunk_globe_app_v2/appserver/static/nextgen-embed/index.html', 'orbital dataset:')
 
-console.log('NASA Q1 v2 smoke passed: package + operational confidence + telemetry wiring verified.')
+console.log('V2 smoke passed: package + operational confidence + telemetry wiring verified.')
