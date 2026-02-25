@@ -90,11 +90,14 @@ Primary generated orbital outputs:
 
 ## Documentation
 
-- `docs/08-advanced-upgrade-roadmap.md`
 - `docs/09-tech-demo-implementation-plan.md`
 - `docs/10-v2-execution-methods.md`
+- `CHANGELOG.md`
+
+Local-only (gitignored) docs used for demo prep can still exist in your workspace:
+
+- `docs/08-advanced-upgrade-roadmap.md`
 - `docs/11-v2-demo-run-sheet.md`
 - `docs/12-v2-demo-narrator-script.md`
 - `docs/reports/v2-readiness-report.md`
-- `CHANGELOG.md`
 
